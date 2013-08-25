@@ -108,6 +108,11 @@ sub _recv {
     $self->output_to->consume(${ $buf });
 }
 
+=for Pod::Coverage
+  BUILD
+
+=cut
+
 sub BUILD {
     my ($self) = @_;
 

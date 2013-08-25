@@ -1,4 +1,5 @@
 package Message::Passing::Output::NanoMsg;
+# ABSTRACT: output messages to nanomsg
 
 use Moose;
 use NanoMsg::Raw;
@@ -51,6 +52,13 @@ sub _connect {
     my $eid = nn_connect($sock, $self->connect_address);
     die nn_errno unless defined $eid;
 }
+
+=method consume($msg)
+
+Sends a message, as-is. This means that you must have encoded the message to a
+string before sending it.
+
+=cut
 
 sub consume {
     my ($self, $msg) = @_;
