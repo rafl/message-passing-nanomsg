@@ -4,6 +4,7 @@ package Message::Passing::Input::NanoMsg;
 use Moose;
 use NanoMsg::Raw;
 use MooseX::LazyRequire;
+use Scalar::Util 'weaken';
 use namespace::autoclean;
 
 with 'Message::Passing::Role::Input';
@@ -90,9 +91,10 @@ sub _build_watcher {
 
     my $rcvfd = unpack 'i', $packed;
 
+    my $weak_self = $self;
+    weaken $weak_self;
     AE::io $rcvfd, 0, sub {
-        # FIXME: circular ref
-        $self->_recv;
+        $weak_self->_recv;
     };
 }
 
