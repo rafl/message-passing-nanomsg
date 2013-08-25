@@ -1,4 +1,5 @@
 package Message::Passing::Input::NanoMsg;
+# ABSTRACT: input messages from nanomsg
 
 use Moose;
 use NanoMsg::Raw;
